@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Giờ các nước</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f2f2f2;
+            padding: 20px;
+        }
+        .clock {
+            background: white;
+            padding: 20px;
+            margin: 10px auto;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Giờ hiện tại các quốc gia</h1>
+    <div id="clocks"></div>
+
+    <script>
+        const countries = [
+            { name: "Việt Nam", timeZone: "Asia/Ho_Chi_Minh" },
+            { name: "Mỹ (New York)", timeZone: "America/New_York" },
+            { name: "Anh", timeZone: "Europe/London" },
+            { name: "Nhật Bản", timeZone: "Asia/Tokyo" },
+            { name: "Úc (Sydney)", timeZone: "Australia/Sydney" },
+            { name: "Đức", timeZone: "Europe/Berlin" }
+        ];
+
+        function updateClocks() {
+            const container = document.getElementById("clocks");
+            container.innerHTML = "";
+
+            countries.forEach(country => {
+                const now = new Date().toLocaleTimeString("vi-VN", {
+                    timeZone: country.timeZone,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+
+                const div = document.createElement("div");
+                div.className = "clock";
+                div.innerHTML = `<h2>${country.name}</h2><p>${now}</p>`;
+                container.appendChild(div);
+            });
+        }
+
+        updateClocks();
+        setInterval(updateClocks, 1000);
+    </script>
+</body>
+</html>
